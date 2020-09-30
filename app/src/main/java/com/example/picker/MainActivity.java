@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -127,14 +128,22 @@ public class MainActivity extends BaseActivity {
 
 
     public void onYearMonthDayTimePicker(View view) {
+        Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONDAY);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
         DateTimePicker picker = new DateTimePicker(this, DateTimePicker.HOUR_24);
-        picker.setActionButtonTop(false);
+        picker.setActionButtonTop(true);
         picker.setDateRangeStart(2017, 1, 1);
-        picker.setDateRangeEnd(2025, 11, 11);
-        picker.setSelectedItem(2018,6,16,16,43);
-        picker.setTimeRangeStart(9, 0);
-        picker.setTimeRangeEnd(20, 30);
-        picker.setCanLinkage(false);
+        picker.setDateRangeEnd(2111, 1, 1);
+        picker.setSelectedItem(year,month,day,hour,minute);
+        picker.setTimeRangeStart(0, 0);
+        picker.setTimeRangeEnd(23, 59);
+//        picker.setCanLinkage(false);
+        picker.setCanLoop(false);
+        picker.setCanLinkage(true);
         picker.setTitleText("请选择");
 //        picker.setStepMinute(5);
         picker.setWeightEnable(true);
@@ -144,7 +153,7 @@ public class MainActivity extends BaseActivity {
         config.setAlpha(120);//线透明度
         config.setVisible(true);//线不显示 默认显示
         picker.setLineConfig(config);
-        picker.setLabel(null,null,null,null,null);
+//       picker.setLabel("年","月", "日", "时", "分");
         picker.setOnDateTimePickListener(new DateTimePicker.OnYearMonthDayTimePickListener() {
             @Override
             public void onDateTimePicked(String year, String month, String day, String hour, String minute) {
